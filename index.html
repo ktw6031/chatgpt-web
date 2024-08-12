@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CWS1/2 비행대전 참가신청</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .form-container {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+        <form action="">
+        <fieldset>
+            <h3>유의사항</h3>
+            1. 예약제는 선착순 우선(상황 따라 변경 예정)<br>
+            2. 헬기는 공중 판정				<br>
+            3. 예약시 자기 디코닉 썬더닉을 적든 아니면 남들이 보기에 사람 특정이 되는 별칭 적어두기				<br>
+            4. 예약자는 희망 지상 장비 종류 작성해 두면 좋음				<br>
+            5. 이거 가지고 싸우지말자;;;;;<br>
+            6. 예약자가 생길수는 있으나 2분대가	결성이 된다면 2분대에서 진행될것
+        </fieldset>
+    </form>
+    <div class="form-container">
+        <form id="surveyForm">
+            <div class="form-group">
+                <label for="nickname">닉네임:</label>
+                <input type="text" id="nickname" name="nickname" required>
+            </div>
+            <div class="form-group">
+                <label>참가희망 장비:</label>
+                <input type="radio" id="option1" name="choice" value="Option 1" required>
+                <label for="option1">지상</label><br>
+                <input type="radio" id="option2" name="choice" value="Option 2">
+                <label for="option2">공중</label><br>
+            </div>
+            <button type="submit">제출</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nickname = document.getElementById('nickname').value;
+            var choice = document.querySelector('input[name="choice"]:checked').value;
+
+            fetch('https://script.google.com/macros/s/AKfycbyeho_k1Q-Mu3buEgr1e3_qs7FXTYbeuJ_fzvETZlg2nzrMa3P5bECaqXs0rpX6mGah/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nickname: nickname, choice: choice })
+            }).then(response => response.json())
+            .then(data => {
+                alert('제출되었습니다!');
+                console.log(data);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+    <form action="">
+        <fieldset>
+            <h3>비행대전이란</h3>
+            비행대전은 비행대 간 치뤄지는 리얼리스틱 공-지합동전 8 vs 8 이벤트입니다. 기본적인 룰은 리얼리스틱 지상전과 유사합니다. 매일 23시부터 오픈되며 1주일마다 유저들이 사용할 수 있는 장비 BR이 변경됩니다. <br><br>
+            다양한 BR에서 팀원들과 긴밀한 협력을 통해 전략적인 전투를 수행하므로 색다른 재미와 성취감을 느낄 수 있는 비행대의 꽃이라고 칭할만한 컨텐츠입니다.<br><br>
+            모든 유저는 한 번만 스폰할 수 있습니다. 대신 SP 개념이 없어 모든 장비를, 원하는 무장 세팅을 달고 선스폰이 가능합니다. 예를 들자면 풀캐스 무장을 단 전투기나 미사일을 탑재한 헬기로 선스폰을 할 수 있습니다. 때문에 전투가 빠르게 진행됩니다.<br><br>
+            고정익기 유저는 기본적으로 비행장에서 스폰하나 폭격기판정을 받는 기체는 공중스폰을 합니다.<br>
+            회전익기 유저는 2곳의 스폰포인트를 선택하여 스폰합니다<br>
+            지상유저는 리얼 지상과 똑같이 스폰포인트를 선택하여 스폰합니다.<br><br>
+            비행대전의 승리 목표는 리얼리스틱 지상전과 동일합니다. 맵에 주어진 거점들(A B 섬멸전은 등장하지 않습니다. 단, A 단일거점은 나올 수도 있습니다.)을 캡하여 적의 스폰포인트를 0까지 깎거나, 적 유저 8명을 모두 격파하면 승리합니다.<br><br>
+            공중유저들은 모든 유저태그가 보이지 않습니다. 때문에 곡예용 연기와 편대핑, 음챗을 통해 피아식별을 해야합니다. 지상유저들은 리얼리스틱 지상전처럼 아군 지상군 유저 태그가 보입니다. 단, 마찬가지로 공중 유저태그가 뜨지 않습니다<br><br>
+            편성은 공중(회전익기 포함) 최대 4명 제한이 걸립니다. 지상전력은 제한이 없습니다. 8지상도 이론상 가능합니다.<br><br>
+            해당 주간에 정해진 BR은 모든 유저의 최대 한계선입니다. 밑의 장비를 픽하는것은 무관합니다. (Ex. 이번주간 비행대전 BR 11.7, 11.7(o) 11.0(o) 12.0(x) )<br><br>
+            이상으로 CWS 비행대전의 기본적인 소개를 마칩니다. 자주 하는 질문 탭과 준비 탭도 봐주시길 바라며, 궁금한 점은 저 고멘과, 비행대전 관리자들이게 언제든지 편하게 질문해주세요.<br>
+            <br>24.06.15 부비행대장 고멘 초안 작성 
+        </fieldset>
+    </form>
+</body>
+</html>
