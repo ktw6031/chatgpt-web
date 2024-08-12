@@ -62,26 +62,27 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('surveyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+<script>
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-            var nickname = document.getElementById('nickname').value;
-            var choice = document.querySelector('input[name="choice"]:checked').value;
+        var nickname = document.getElementById('nickname').value;
+        var choice = document.querySelector('input[name="choice"]:checked').value;
 
-            fetch('https://script.google.com/macros/s/AKfycbyeho_k1Q-Mu3buEgr1e3_qs7FXTYbeuJ_fzvETZlg2nzrMa3P5bECaqXs0rpX6mGah/exec', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nickname: nickname, choice: choice })
-            }).then(response => response.json())
-            .then(data => {
-                alert('제출되었습니다!');
-                console.log(data);
-            }).catch(error => {
-                console.error('Error:', error);
-            });
+        fetch('https://script.google.com/macros/s/AKfycbyeho_k1Q-Mu3buEgr1e3_qs7FXTYbeuJ_fzvETZlg2nzrMa3P5bECaqXs0rpX6mGah/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nickname: nickname, choice: choice })
+        }).then(response => response.json())
+        .then(data => {
+            alert('제출되었습니다!'); // 전송 성공 시 알림
+            console.log('Success:', data);
+        }).catch(error => {
+            alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.'); // 전송 실패 시 알림
+            console.error('Error:', error);
         });
-    </script>
+    });
+</script>
 
     <fieldset>
         <h3>유의사항</h3>
